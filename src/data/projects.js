@@ -7,7 +7,7 @@ import project4 from '../assets/thu-pethroom.png';
 import project5 from '../assets/thu-lewkin.jpg';
 import project6 from '../assets/thu-naming.jpg';
 import project7 from '../assets/thu-krazy-tiger.jpg';
-import project8 from '../assets/thu-Kimshardware.jpg';
+import project8 from '../assets/thu-kimshardware.jpg';
 import project9 from '../assets/thu-duorest.jpg';
 import project10 from '../assets/thu-danselente.png';
 import project11 from '../assets/thu-whiterabbit.png';
