@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
-/* 폰트 및 기본 테마 설정 */
 :root {
-  /* Noto Sans KR을 최우선으로 설정 */
   font-family: "Noto Sans KR", sans-serif;
   
   text-rendering: optimizeLegibility;
@@ -12,30 +10,25 @@
   scroll-behavior: smooth;
 }
 
-/* Vite 기본 스타일 중 레이아웃 방해 요소 제거 */
 body {
   margin: 0;
   padding: 0;
   min-width: 100%;
   min-height: 100vh;
-  /* 기존의 flex, place-items 설정을 삭제하여 스크롤 레이아웃이 정상 작동하게 합니다 */
   display: block;
   font-family: inherit;
 }
 
-/* 링크 스타일 초기화 */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* Tailwind v4용 변수 설정 (필요 시) */
 @theme {
   --color-brand: #3b82f6;
   --color-brand-dark: #2563eb;
 }
 
-/* 모바일 환경에서 가독성을 위한 텍스트 크기 미세 조정 */
 @layer base {
   h2 {
     @apply leading-tight;

@@ -125,7 +125,6 @@ const App = () => {
         </section>
 
         {/* --- About Me & Experience & Education --- */}
-        {/* (이 부분은 이전과 동일하므로 생략하지 않고 그대로 유지하세요) */}
         <FadeInSection>
         <section className="mb-24 md:mb-32 grid md:grid-cols-5 gap-12 md:gap-20">
           <div className="md:col-span-2">

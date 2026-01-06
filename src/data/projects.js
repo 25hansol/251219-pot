@@ -1,5 +1,4 @@
-// src/data/projects.js
-// 이미지 파일
+// src/assets
 import project1 from '../assets/thu-coway.jpg';
 import project2 from '../assets/thu-nostasy.jpg';
 import project3 from '../assets/thu-worksout.jpg';
