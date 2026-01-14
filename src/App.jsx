@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Mail, Code2, CheckCircle2, ArrowUp } from 'lucide-react'; // ArrowUp 아이콘 추가
+import { Github, Mail, Code2, CheckCircle2, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { PROJECTS_DATA, ABOUT_ME, EXPERIENCES, EDUCATION, CERTIFICATIONS } from './data/projects';
 import ProjectModal from './components/ProjectModal';
+import { ROLE_CONFIG } from './components/roleConfig';
 
 const FadeInSection = ({ children }) => {
   return (
@@ -18,6 +19,9 @@ const FadeInSection = ({ children }) => {
 };
 
 const App = () => {
+  const [role, setRole] = useState('frontend');
+  const roleConfig = ROLE_CONFIG[role];
+
   // 1. 스크롤 진행도를 추적하는 로직 추가
   const { scrollYProgress } = useScroll();
   
@@ -86,11 +90,26 @@ const App = () => {
       <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-[60] border-b border-slate-100">
         <div className="max-w-5xl mx-auto px-5 py-4 flex justify-between items-center">
           {/* 로고 역할의 텍스트: 클릭 시 새로고침 */}
+          <div className="flex items-center gap-1">
+          {['frontend', 'publisher'].map(r => (
+            <button
+              key={r}
+              onClick={() => setRole(r)}
+              className={`px-3 py-1 text-xs font-bold rounded-lg transition
+                ${role === r
+                  ? 'bg-green-600 text-white'
+                  : 'bg-slate-100 text-slate-500 hover:text-slate-700'}
+              `}
+            >
+              {r === 'frontend' ? '프론트엔드' : '퍼블리셔'}
+            </button>
+          ))}
+          </div>
           <h1 
             onClick={() => window.location.reload()}
             className="text-lg font-bold tracking-tighter cursor-pointer hover:text-green-600 transition-colors duration-200 select-none"
           >
-            프론트엔드 개발자 <span className="text-green-600">김한솔</span>
+            꾸준히 완성하는 개발자 <span className="text-green-600">김한솔</span>
           </h1>
           <div className="hidden sm:flex space-x-8 text-sm font-medium text-slate-500">
             <a href="#about" className="hover:text-green-600 transition">About</a>
@@ -104,10 +123,10 @@ const App = () => {
         {/* --- Hero Section --- */}
         <section id="about" className="mb-24 md:mb-32">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <span className="text-green-600 font-bold mb-4 block tracking-widest text-xs uppercase">Front-end Developer</span>
+            <span className="text-green-600 font-bold mb-4 block tracking-widest text-xs uppercase">{roleConfig.heroKeyword}</span>
             <h2 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-[-0.05em] leading-[1.15] mb-8 tracking-tight break-keep text-slate-900">
-              끊임없이 고민하고<br className="hidden sm:block" /> 꾸준히 완성하는<br />
-              개발자 <span className="text-green-600">김한솔</span>입니다.
+              {roleConfig.heroTitle.split(' ').slice(0, -1).join(' ')}<br />
+              <span className="text-green-600">{roleConfig.heroTitle.split(' ').slice(-1)}</span>입니다.
             </h2>
             <div className="flex gap-3">
               <a href="https://www.notion.so/Portfolio-22bb32efc7f6801daa7ffc7b13e9949a?source=copy_link" className="w-[40px] h-[40px] p-3 bg-slate-100 rounded-full hover:bg-green-600 hover:text-white transition">
@@ -129,7 +148,7 @@ const App = () => {
         <section className="mb-24 md:mb-32 grid md:grid-cols-5 gap-12 md:gap-20">
           <div className="md:col-span-2">
             <h3 className="text-xl font-bold mb-6">About Me</h3>
-            <p className="text-slate-600 leading-relaxed mb-6 break-keep text-lg font-medium">{ABOUT_ME.intro}</p>
+            <p className="text-slate-600 leading-relaxed mb-6 break-keep text-lg font-medium">{roleConfig.aboutIntro}</p>
             <div className="flex flex-wrap gap-2">
               {ABOUT_ME.skills.map(skill => (
                 <span key={skill} className="px-3 py-1 bg-slate-100 text-slate-500 rounded-lg text-xs font-bold">#{skill}</span>
