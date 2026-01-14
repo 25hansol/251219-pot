@@ -20,7 +20,25 @@ const FadeInSection = ({ children }) => {
 
 const App = () => {
   const [role, setRole] = useState('frontend');
-  const roleConfig = ROLE_CONFIG[role];
+
+  // ✅ URL ?role= 값 반영
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const roleFromQuery = params.get('role');
+
+    if (roleFromQuery === 'frontend' || roleFromQuery === 'publisher') {
+      setRole(roleFromQuery);
+    }
+  }, []);
+
+  const changeRole = (nextRole) => {
+    setRole(nextRole);
+    const params = new URLSearchParams(window.location.search);
+    params.set('role', nextRole);
+    window.history.replaceState(null, '', `?${params.toString()}`);
+  };
+
+  const roleConfig = ROLE_CONFIG[role] ?? ROLE_CONFIG.frontend;
 
   // 1. 스크롤 진행도를 추적하는 로직 추가
   const { scrollYProgress } = useScroll();
@@ -94,7 +112,7 @@ const App = () => {
           {['frontend', 'publisher'].map(r => (
             <button
               key={r}
-              onClick={() => setRole(r)}
+              onClick={() => changeRole(r)}
               className={`px-3 py-1 text-xs font-bold rounded-lg transition
                 ${role === r
                   ? 'bg-green-600 text-white'
