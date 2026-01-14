@@ -20,6 +20,7 @@ const FadeInSection = ({ children }) => {
 
 const App = () => {
   const [role, setRole] = useState('frontend');
+  const [isRoleLocked, setIsRoleLocked] = useState(false);
 
   // ✅ URL ?role= 값 반영
   useEffect(() => {
@@ -28,6 +29,7 @@ const App = () => {
 
     if (roleFromQuery === 'frontend' || roleFromQuery === 'publisher') {
       setRole(roleFromQuery);
+      setIsRoleLocked(true);
     }
   }, []);
 
@@ -108,26 +110,28 @@ const App = () => {
       <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-[60] border-b border-slate-100">
         <div className="max-w-5xl mx-auto px-5 py-4 flex justify-between items-center">
           {/* 로고 역할의 텍스트: 클릭 시 새로고침 */}
-          <div className="flex items-center gap-1">
-          {['frontend', 'publisher'].map(r => (
-            <button
-              key={r}
-              onClick={() => changeRole(r)}
-              className={`px-3 py-1 text-xs font-bold rounded-lg transition
-                ${role === r
-                  ? 'bg-green-600 text-white'
-                  : 'bg-slate-100 text-slate-500 hover:text-slate-700'}
-              `}
-            >
-              {r === 'frontend' ? '프론트엔드' : '퍼블리셔'}
-            </button>
-          ))}
-          </div>
+          {!isRoleLocked && (
+            <div className="flex items-center gap-1">
+            {['frontend', 'publisher'].map(r => (
+              <button
+                key={r}
+                onClick={() => changeRole(r)}
+                className={`px-3 py-1 text-xs font-bold rounded-lg transition
+                  ${role === r
+                    ? 'bg-green-600 text-white'
+                    : 'bg-slate-100 text-slate-500 hover:text-slate-700'}
+                `}
+              >
+                {r === 'frontend' ? '프론트엔드' : '퍼블리셔'}
+              </button>
+            ))}
+            </div>
+          )}
           <h1 
             onClick={() => window.location.reload()}
             className="text-lg font-bold tracking-tighter cursor-pointer hover:text-green-600 transition-colors duration-200 select-none"
           >
-            꾸준히 완성하는 개발자 <span className="text-green-600">김한솔</span>
+            김한솔 <span className="text-green-600">포트폴리오</span>
           </h1>
           <div className="hidden sm:flex space-x-8 text-sm font-medium text-slate-500">
             <a href="#about" className="hover:text-green-600 transition">About</a>
